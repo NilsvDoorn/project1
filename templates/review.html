@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block main %}
+<h1>Book details</h1>
+<p>isbn: {{ book[1] }}<br>
+  Title: {{ book[2] }}<br>
+  Author: {{ book[3] }}<br>
+  Year: {{ book[4] }}<br>
+  Review counter: {{ reviews_count }}<br>
+  Average rating: {{ rating }}</p>
+<p>Goodreads review counter: {{ goodreads['reviews_count'] }}<br>
+  Goodreads average rating: {{ goodreads['average_rating'] }}</p>
+<form action="/submit_review" method="post">
+  <div id="add_review">
+    <h3> add your review </h3>
+      <input autocomplete="off" autofocus type="text" name="review" placeholder="Add text...." style="width:500px">
+      <input type = number min=1 max=5 placeholder="Rating" name="rating" style="width:100px">
+      <button class="btn btn-primary" name="book" type="submit" value="{{ book[0] }}">add</button>
+  </div>
+</form>
+<table id="myTable" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>person</th>
+            <th>review</th>
+            <th>note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ul>
+            {% for items in reviews %}
+                <tr>
+                    <td>{{ items['username'] }}</td>
+                    <td>{{ items['review'] }}</td>
+                    <td>{{ items['rating'] }}</td>
+                </tr>
+            {% endfor %}
+        </ul>
+    </tbody>
+
+{% endblock %}
